@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: GITHUB_USERNAME/veralix-research
+  repo: emerilansel-jpg/veralix-research
   branch: main
 
 media_folder: public/images
