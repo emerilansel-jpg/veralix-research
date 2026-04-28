@@ -1,0 +1,70 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  organizationSchema?: boolean;
+  articleSchema?: Record<string, unknown>;
+  breadcrumbSchema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '',
+  organizationSchema = false,
+  articleSchema,
+  breadcrumbSchema,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, Astro.site);
+
+const schemaPayload = [
+  organizationSchema
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Veralix Research',
+        url: 'https://veralixresearch.com',
+        description: 'Independent strategic market research and intelligence across key industry verticals.',
+      }
+    : null,
+  articleSchema ?? null,
+  breadcrumbSchema ?? null,
+].filter(Boolean);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl.toString()} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {
+      schemaPayload.length > 0 && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(schemaPayload.length === 1 ? schemaPayload[0] : schemaPayload)}
+        />
+      )
+    }
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

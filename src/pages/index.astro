@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const posts = (await Astro.glob('../content/research/*.md')).sort(
+  (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime(),
+);
+---
+
+<BaseLayout
+  title="Veralix Research | Strategic Market Intelligence"
+  description="Independent research and analysis across key market verticals."
+  canonicalPath="/"
+  organizationSchema={true}
+>
+  <section class="hero">
+    <div class="hero__inner">
+      <p class="hero__eyebrow">Independent Market Research</p>
+      <h1>Strategic Market Intelligence</h1>
+      <p>Independent research and analysis across key market verticals</p>
+    </div>
+  </section>
+
+  <section class="home-section" id="research">
+    <div class="home-section__inner">
+      <div class="section-heading">
+        <h2>Research &amp; Analysis</h2>
+        <p>
+          Sector-focused research covering demand patterns, vendor positioning, capital allocation shifts, and market
+          structure developments shaping enterprise priorities.
+        </p>
+      </div>
+
+      <div class="article-grid">
+        {
+          posts.map((post) => (
+            <ArticleCard
+              href={`/research/${post.file.split('/').pop()?.replace(/\.md$/, '')}`}
+              title={post.frontmatter.title}
+              description={post.frontmatter.description}
+              category={post.frontmatter.category}
+              author={post.frontmatter.author}
+              date={post.frontmatter.date}
+              featuredImage={post.frontmatter.featured_image}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

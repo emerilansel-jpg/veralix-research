@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: GITHUB_USERNAME/veralix-research
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: research
+    label: Research Articles
+    folder: src/content/research
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Author, name: author, widget: string, default: "James Whitfield, Senior Research Analyst" }
+      - { label: Category, name: category, widget: string }
+      - { label: Tags, name: tags, widget: list }
+      - { label: Meta Description, name: description, widget: string }
+      - { label: Featured Image, name: featured_image, widget: image, required: false }
+      - { label: Body, name: body, widget: markdown }

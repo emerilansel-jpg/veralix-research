@@ -1,0 +1,22 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/research', label: 'Research' },
+  { href: '/about', label: 'About' },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__brand">Veralix Research</a>
+    <nav aria-label="Primary navigation" class="site-header__nav">
+      {
+        links.map((link) => (
+          <a href={link.href} class="site-header__link">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

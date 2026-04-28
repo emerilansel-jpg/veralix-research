@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const posts = (await Astro.glob('../../content/research/*.md')).sort(
+  (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime(),
+);
+
+function getPostSlug(post) {
+  return post.file.split('/').pop().replace(/\.md$/, '');
+}
+
+export async function getStaticPaths() {
+  const contentPosts = await Astro.glob('../../content/research/*.md');
+
+  return [
+    { params: { slug: undefined }, props: { kind: 'index' } },
+    ...contentPosts.map((post) => ({
+      params: { slug: getPostSlug(post) },
+      props: { kind: 'article', post },
+    })),
+  ];
+}
+
+const { kind, post } = Astro.props;
+
+let articleHtml = '';
+let readingTime = '';
+let articlePath = '';
+let articleSchema;
+let breadcrumbSchema;
+
+if (kind === 'article') {
+  articleHtml = await post.compiledContent();
+  const words = articleHtml.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / 220));
+  readingTime = `${minutes} min read`;
+  articlePath = `/research/${getPostSlug(post)}`;
+
+  articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.frontmatter.title,
+    description: post.frontmatter.description,
+    author: {
+      '@type': 'Person',
+      name: post.frontmatter.author,
+    },
+    datePublished: new Date(post.frontmatter.date).toISOString(),
+    image: new URL(post.frontmatter.featured_image, Astro.site).toString(),
+    publisher: {
+      '@type': 'Organization',
+      name: 'Veralix Research',
+      url: 'https://veralixresearch.com',
+    },
+  };
+
+  breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://veralixresearch.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Research',
+        item: 'https://veralixresearch.com/research',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.frontmatter.title,
+      },
+    ],
+  };
+}
+---
+
+{
+  kind === 'article' ? (
+    <ArticleLayout
+      title={post.frontmatter.title}
+      description={post.frontmatter.description}
+      author={post.frontmatter.author}
+      date={post.frontmatter.date}
+      category={post.frontmatter.category}
+      featuredImage={post.frontmatter.featured_image}
+      readingTime={readingTime}
+      canonicalPath={articlePath}
+      articleSchema={articleSchema}
+      breadcrumbSchema={breadcrumbSchema}
+    >
+      <Fragment set:html={articleHtml} />
+    </ArticleLayout>
+  ) : (
+    <BaseLayout
+      title="Research | Veralix Research"
+      description="Browse Veralix Research analysis across cybersecurity, fintech, and adjacent market verticals."
+      canonicalPath="/research"
+    >
+      <section class="research-index">
+        <div class="research-index__inner">
+          <div class="section-heading section-heading--left">
+            <p class="section-heading__eyebrow">Editorial Archive</p>
+            <h1>Research &amp; Analysis</h1>
+            <p>
+              Current market coverage from Veralix Research, with a focus on competitive dynamics, adoption patterns,
+              and the structural shifts shaping enterprise investment priorities.
+            </p>
+          </div>
+
+          <div class="article-grid">
+            {
+              posts.map((entry) => (
+                <ArticleCard
+                  href={`/research/${getPostSlug(entry)}`}
+                  title={entry.frontmatter.title}
+                  description={entry.frontmatter.description}
+                  category={entry.frontmatter.category}
+                  author={entry.frontmatter.author}
+                  date={entry.frontmatter.date}
+                  featuredImage={entry.frontmatter.featured_image}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </BaseLayout>
+  )
+}

@@ -1,0 +1,76 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AuthorBox from '../components/AuthorBox.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  author: string;
+  date: string | Date;
+  category: string;
+  featuredImage: string;
+  readingTime: string;
+  canonicalPath: string;
+  articleSchema: Record<string, unknown>;
+  breadcrumbSchema: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  author,
+  date,
+  category,
+  featuredImage,
+  readingTime,
+  canonicalPath,
+  articleSchema,
+  breadcrumbSchema,
+} = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${title} | Veralix Research`}
+  description={description}
+  canonicalPath={canonicalPath}
+  articleSchema={articleSchema}
+  breadcrumbSchema={breadcrumbSchema}
+>
+  <article class="article-page">
+    <div class="article-page__container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">&gt;</span>
+        <a href="/research">Research</a>
+        <span aria-hidden="true">&gt;</span>
+        <span>{title}</span>
+      </nav>
+
+      <header class="article-page__header">
+        <h1>{title}</h1>
+        <div class="article-page__meta">
+          <span>{author}</span>
+          <span aria-hidden="true">|</span>
+          <time datetime={new Date(date).toISOString()}>{formattedDate}</time>
+          <span aria-hidden="true">|</span>
+          <span>{readingTime}</span>
+          <span class="article-page__badge">{category}</span>
+        </div>
+      </header>
+
+      <img src={featuredImage} alt={title} class="article-page__image" />
+
+      <div class="article-body">
+        <slot />
+      </div>
+
+      <AuthorBox author={author} />
+    </div>
+  </article>
+</BaseLayout>

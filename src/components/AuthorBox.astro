@@ -1,0 +1,16 @@
+---
+export interface Props {
+  author: string;
+}
+
+const { author } = Astro.props;
+---
+
+<aside class="author-box">
+  <p class="author-box__name">{author}</p>
+  <p class="author-box__title">Senior Research Analyst</p>
+  <p class="author-box__bio">
+    James Whitfield leads Veralix Research coverage across enterprise technology, digital infrastructure, and platform economics.
+    His work focuses on translating fragmented market signals into actionable insight for investors, operators, and strategic planning teams.
+  </p>
+</aside>

@@ -1,0 +1,37 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fintechTitle fintechDesc">
+  <title id="fintechTitle">Financial technology research illustration</title>
+  <desc id="fintechDesc">An abstract editorial graphic showing financial technology platform trends, transaction flows, and market segmentation.</desc>
+  <rect width="1600" height="900" fill="#EEF4F8"/>
+  <rect x="92" y="92" width="1416" height="716" rx="28" fill="#FFFFFF"/>
+  <rect x="152" y="152" width="408" height="596" rx="24" fill="#0A1628"/>
+  <rect x="194" y="198" width="164" height="16" rx="8" fill="#7FC5F1"/>
+  <rect x="194" y="236" width="248" height="22" rx="11" fill="#FFFFFF"/>
+  <rect x="194" y="282" width="324" height="12" rx="6" fill="#B7C3D1"/>
+  <rect x="194" y="314" width="276" height="12" rx="6" fill="#7C8AA0"/>
+  <path d="M194 402H518" stroke="#1A2F4A" stroke-width="2"/>
+  <circle cx="234" cy="468" r="48" fill="#153250"/>
+  <circle cx="356" cy="468" r="48" fill="#1D6FA4"/>
+  <circle cx="478" cy="468" r="48" fill="#3B8FC4"/>
+  <rect x="194" y="560" width="324" height="140" rx="18" fill="#10233D"/>
+  <path d="M224 649C262 607 302 584 348 584C394 584 436 608 490 649" stroke="#7FC5F1" stroke-width="6" stroke-linecap="round"/>
+  <rect x="610" y="152" width="838" height="260" rx="24" fill="#F7FAFC"/>
+  <rect x="652" y="194" width="168" height="16" rx="8" fill="#1D6FA4"/>
+  <rect x="652" y="232" width="292" height="24" rx="12" fill="#0A1628"/>
+  <rect x="652" y="286" width="730" height="84" rx="18" fill="#EAF1F6"/>
+  <path d="M690 328C752 305 809 282 872 282C936 282 993 330 1058 330C1121 330 1175 284 1234 284C1291 284 1330 307 1376 332" stroke="#1D6FA4" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="872" cy="282" r="8" fill="#0A1628"/>
+  <circle cx="1058" cy="330" r="8" fill="#0A1628"/>
+  <circle cx="1234" cy="284" r="8" fill="#0A1628"/>
+  <rect x="610" y="448" width="398" height="300" rx="24" fill="#F7FAFC"/>
+  <rect x="652" y="492" width="158" height="16" rx="8" fill="#1D6FA4"/>
+  <rect x="652" y="529" width="212" height="20" rx="10" fill="#0A1628"/>
+  <rect x="652" y="583" width="112" height="112" rx="18" fill="#D7E8F4"/>
+  <rect x="780" y="557" width="112" height="138" rx="18" fill="#9ACDE8"/>
+  <rect x="908" y="520" width="58" height="175" rx="18" fill="#1D6FA4"/>
+  <rect x="1050" y="448" width="398" height="300" rx="24" fill="#0A1628"/>
+  <rect x="1092" y="492" width="132" height="16" rx="8" fill="#7FC5F1"/>
+  <rect x="1092" y="529" width="260" height="20" rx="10" fill="#FFFFFF"/>
+  <rect x="1092" y="584" width="312" height="22" rx="11" fill="#153250"/>
+  <rect x="1092" y="621" width="248" height="22" rx="11" fill="#153250"/>
+  <rect x="1092" y="658" width="278" height="22" rx="11" fill="#153250"/>
+</svg>
